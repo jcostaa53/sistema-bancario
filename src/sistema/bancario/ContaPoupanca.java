@@ -14,8 +14,15 @@ public class ContaPoupanca {
     String nome;
     String numeroConta;
     float saldo;
-    float deposito;
-    float saque;
+    String senha;
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
     public String getNome() {
         return nome;
@@ -41,21 +48,7 @@ public class ContaPoupanca {
         this.saldo = saldo;
     }
 
-    public float getDeposito() {
-        return deposito;
-    }
-
-    public void setDeposito(float deposito) {
-        this.deposito = deposito;
-    }
-
-    public float getSaque() {
-        return saque;
-    }
-
-    public void setSaque(float saque) {
-        this.saque = saque;
-    }
+    
 
     /**
      * @param args the command line arguments

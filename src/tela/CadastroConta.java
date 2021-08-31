@@ -6,34 +6,34 @@
 package tela;
 
 import javax.swing.JOptionPane;
-import sistema.bancario.ContaPoupanca;
 import regradenegocio.RegraDeNegocio;
+import sistema.bancario.ContaPoupanca;
 
 /**
  *
  * @author joao.costa3
  */
 public class CadastroConta extends javax.swing.JFrame {
-    ContaPoupanca ContaPoupanca;
-    RegraDeNegocio gerarNumero = new RegraDeNegocio();
-    ContaPoupanca contaPoupanca = new ContaPoupanca();
-        
+     private ContaPoupanca contaPoupanca;
+     public CadastroConta() {
+        initComponents();
+    }
+     
+     
+    
+    
     private boolean validarFormulario(){
         String nome = varNome.getText().trim();
-        if (validarQtd3Digitos(nome)){
+        if (nome.length() < 3){
             JOptionPane.showMessageDialog(null, "digite um nome correto!");
             return true;
         }
         
-        
-        
         return false;
     }
     
-    private boolean validarQtd3Digitos(String valor){
-        return valor.length() < 3;
-    }
-    
+  
+    /*
     private boolean fazerDeposito(){
         float deposito = Float.parseFloat(JOptionPane.showInputDialog("informe o valor a ser depositado: R$ "));
         deposito += varSaldo;
@@ -45,13 +45,8 @@ public class CadastroConta extends javax.swing.JFrame {
         varSaldo -= saque;
         return varSaldo > 0;
     }
+    */
     
-    
-    
-    public CadastroConta() {
-        this.gerarNumero = new RegraDeNegocio();
-        initComponents();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -66,9 +61,10 @@ public class CadastroConta extends javax.swing.JFrame {
         lbTitulo = new javax.swing.JLabel();
         lbNome = new javax.swing.JLabel();
         varNome = new javax.swing.JTextField();
-        lbNumeroConta = new javax.swing.JLabel();
-        varNumeroConta = new javax.swing.JFormattedTextField();
         btSalvar = new javax.swing.JButton();
+        btSaldo = new javax.swing.JButton();
+        btSaque = new javax.swing.JButton();
+        btDeposito = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro Cliente");
@@ -87,16 +83,6 @@ public class CadastroConta extends javax.swing.JFrame {
             }
         });
 
-        lbNumeroConta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbNumeroConta.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbNumeroConta.setText("Numero da Conta:");
-
-        try {
-            varNumeroConta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         btSalvar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btSalvar.setText("Salvar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -105,25 +91,52 @@ public class CadastroConta extends javax.swing.JFrame {
             }
         });
 
+        btSaldo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btSaldo.setText("Saldo");
+        btSaldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSaldoActionPerformed(evt);
+            }
+        });
+
+        btSaque.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btSaque.setText("Saque");
+        btSaque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSaqueActionPerformed(evt);
+            }
+        });
+
+        btDeposito.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btDeposito.setText("Deposito");
+        btDeposito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDepositoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout principalLayout = new javax.swing.GroupLayout(principal);
         principal.setLayout(principalLayout);
         principalLayout.setHorizontalGroup(
             principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, principalLayout.createSequentialGroup()
-                .addContainerGap(206, Short.MAX_VALUE)
-                .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(194, 194, 194))
             .addGroup(principalLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbNome, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbNumeroConta))
-                .addGap(18, 18, 18)
-                .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(varNome, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(varNumeroConta))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(principalLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btSaque, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(principalLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(lbNome, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(varNome, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         principalLayout.setVerticalGroup(
             principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,13 +146,13 @@ public class CadastroConta extends javax.swing.JFrame {
                 .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbNome)
                     .addComponent(varNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
                 .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbNumeroConta)
-                    .addComponent(varNumeroConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
-                .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                    .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSaque, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -162,13 +175,29 @@ public class CadastroConta extends javax.swing.JFrame {
     }//GEN-LAST:event_varNomeActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        ContaPoupanca = new ContaPoupanca();
-        boolean erro = validarFormulario();
-        if (!erro) {
-            //TODO chamar metodo que salva no bd
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+        
+        if (!validarFormulario()) {
+            RegraDeNegocio negocio = new RegraDeNegocio(); 
+            contaPoupanca = new ContaPoupanca();
+            contaPoupanca.setNome(varNome.getText().trim());
+            negocio.salvarCadastro(contaPoupanca);
         }
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btSaqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaqueActionPerformed
+        new Saque().setVisible(true);
+            this.dispose();
+    }//GEN-LAST:event_btSaqueActionPerformed
+
+    private void btSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaldoActionPerformed
+        new Saldo().setVisible(true);
+            this.dispose();
+    }//GEN-LAST:event_btSaldoActionPerformed
+
+    private void btDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDepositoActionPerformed
+        new Deposito().setVisible(true);
+            this.dispose();
+    }//GEN-LAST:event_btDepositoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,12 +250,13 @@ public class CadastroConta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btDeposito;
+    private javax.swing.JButton btSaldo;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btSaque;
     private javax.swing.JLabel lbNome;
-    private javax.swing.JLabel lbNumeroConta;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JPanel principal;
     private javax.swing.JTextField varNome;
-    private javax.swing.JFormattedTextField varNumeroConta;
     // End of variables declaration//GEN-END:variables
 }

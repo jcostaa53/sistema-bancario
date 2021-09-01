@@ -5,11 +5,13 @@
  */
 package regradenegocio;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import jdk.nashorn.internal.ir.VarNode;
 import sistema.bancario.ContaPoupanca;
 import tela.CadastroConta;
 import tela.Deposito;
+import tela.Saque;
 
 /**
  *
@@ -19,7 +21,8 @@ public class RegraDeNegocio {
     ContaPoupanca contaPoupanca = new ContaPoupanca();
     CadastroConta cadastroConta = new CadastroConta();
     Deposito deposito = new Deposito();
-    
+    Saque saque = new Saque();
+     
     public void salvarCadastro(ContaPoupanca conta){
         conta.setSenha(gerarSenha());
         conta.setNumeroConta(gerarNumeroConta());
@@ -55,6 +58,22 @@ public class RegraDeNegocio {
     }
     
     
+    public void fazerSaque(ContaPoupanca conta, float saque){
+        if (saque > conta.getSaldo()){
+            JOptionPane.showMessageDialog(null, "saldo insuficiente");
+        }
+        else{
+            conta.setSaldo(saque - conta.getSaldo());
+            JOptionPane.showMessageDialog(null, "Saque efetuado com sucesso!");
+        }
+        
+    }
     
+    
+    public void fazerDeposito(float deposito, ContaPoupanca conta){
+        conta.setSaldo (deposito + conta.getSaldo());
+        JOptionPane.showMessageDialog(null, "Deposito efetuado com sucesso!");
+    }
 
+    
 }

@@ -5,6 +5,10 @@
  */
 package tela;
 
+import javax.swing.JOptionPane;
+import regradenegocio.RegraDeNegocio;
+import sistema.bancario.ContaPoupanca;
+
 /**
  *
  * @author joao.costa3
@@ -14,9 +18,19 @@ public class Saque extends javax.swing.JFrame {
     /**
      * Creates new form CadastroAluno
      */
+    
+    ContaPoupanca contaPoupanca;
+    
     public Saque() {
+        
         initComponents();
     }
+    
+     public Saque(ContaPoupanca conta){
+        initComponents();
+        contaPoupanca = conta;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,7 +195,11 @@ public class Saque extends javax.swing.JFrame {
     }//GEN-LAST:event_varNumeroContaActionPerformed
 
     private void btSacarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSacarActionPerformed
-        // TODO add your handling code here:
+        RegraDeNegocio negocio = new RegraDeNegocio();
+        String sacar = varValorSaque.getText().trim();
+        sacar = sacar.replace(",", ".");
+        negocio.fazerDeposito(Float.parseFloat(sacar), contaPoupanca);
+        JOptionPane.showMessageDialog(null, "Saldo em Conta: " + contaPoupanca.getSaldo());
     }//GEN-LAST:event_btSacarActionPerformed
 
     private void varValorSaqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varValorSaqueActionPerformed
@@ -247,10 +265,8 @@ public class Saque extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Saque().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Saque().setVisible(true);
         });
     }
 

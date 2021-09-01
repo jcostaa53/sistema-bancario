@@ -11,11 +11,14 @@ package sistema.bancario;
  */
 public class ContaPoupanca {
 
-    String nome;
-    String numeroConta;
-    float saldo;
-    String senha;
-
+    private String nome;
+    private String numeroConta;
+    private float saldo;
+    private String senha;
+    
+    public ContaPoupanca(){
+    }
+    
     public String getSenha() {
         return senha;
     }

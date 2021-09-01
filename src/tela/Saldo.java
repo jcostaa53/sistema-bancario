@@ -5,6 +5,8 @@
  */
 package tela;
 
+import sistema.bancario.ContaPoupanca;
+
 /**
  *
  * @author joao.costa3
@@ -14,11 +16,17 @@ public class Saldo extends javax.swing.JFrame {
     /**
      * Creates new form CadastroAluno
      */
+    
+    private ContaPoupanca contaPoupanca;
+    
     public Saldo() {
         initComponents();
     }
     
-    
+    public Saldo(ContaPoupanca conta) {
+        initComponents();
+        contaPoupanca = conta;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

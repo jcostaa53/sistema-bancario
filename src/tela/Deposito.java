@@ -5,25 +5,34 @@
  */
 package tela;
 
+import javax.swing.JOptionPane;
+import regradenegocio.RegraDeNegocio;
+import sistema.bancario.ContaPoupanca;
+
 /**
  *
  * @author joao.costa3
  */
 public class Deposito extends javax.swing.JFrame {
 
-    public String valorDepositar;
-        
-    
-    
+
     /**
      * Creates new form CadastroAluno
      */
+    
+    private ContaPoupanca contaPoupanca;
+    
     public Deposito() {
-        this.valorDepositar = varValorDepositar.getText();
         initComponents();
     }
     
+    public Deposito(ContaPoupanca conta){
+        initComponents();
+        contaPoupanca = conta;
+    }
     
+    
+     
     
    
 
@@ -94,6 +103,7 @@ public class Deposito extends javax.swing.JFrame {
         lbValorDepositar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbValorDepositar.setText("Valor de Deposito:");
 
+        varValorDepositar.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         varValorDepositar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 varValorDepositarActionPerformed(evt);
@@ -190,7 +200,11 @@ public class Deposito extends javax.swing.JFrame {
     }//GEN-LAST:event_varNumeroContaActionPerformed
 
     private void btDepositarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDepositarActionPerformed
-        // TODO add your handling code here:
+        RegraDeNegocio negocio = new RegraDeNegocio();
+        String depositar = varValorDepositar.getText().trim();
+        depositar = depositar.replace (",", ".");
+        negocio.fazerDeposito(Float.parseFloat(depositar), contaPoupanca);
+        JOptionPane.showMessageDialog(null, "saldo em conta: " + contaPoupanca.getSaldo());
     }//GEN-LAST:event_btDepositarActionPerformed
 
     private void varValorDepositarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varValorDepositarActionPerformed
@@ -241,6 +255,7 @@ public class Deposito extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Deposito().setVisible(true);
             }

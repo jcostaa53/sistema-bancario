@@ -64,7 +64,7 @@ public class CadastroConta extends javax.swing.JFrame {
         btSalvar = new javax.swing.JButton();
         btSaldo = new javax.swing.JButton();
         btSaque = new javax.swing.JButton();
-        btDeposito = new javax.swing.JButton();
+        btDeposito2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro Cliente");
@@ -107,11 +107,11 @@ public class CadastroConta extends javax.swing.JFrame {
             }
         });
 
-        btDeposito.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btDeposito.setText("Deposito");
-        btDeposito.addActionListener(new java.awt.event.ActionListener() {
+        btDeposito2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btDeposito2.setText("Deposito");
+        btDeposito2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btDepositoActionPerformed(evt);
+                btDeposito2ActionPerformed(evt);
             }
         });
 
@@ -130,7 +130,7 @@ public class CadastroConta extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btSaque, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btDeposito2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(principalLayout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addComponent(lbNome, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -151,7 +151,7 @@ public class CadastroConta extends javax.swing.JFrame {
                     .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btSaque, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btDeposito2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
 
@@ -181,23 +181,26 @@ public class CadastroConta extends javax.swing.JFrame {
             contaPoupanca = new ContaPoupanca();
             contaPoupanca.setNome(varNome.getText().trim());
             negocio.salvarCadastro(contaPoupanca);
+            
+            JOptionPane.showMessageDialog(null, contaPoupanca.getNome() + 
+                    " Salvo com Sucesso!");
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btSaqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaqueActionPerformed
-        new Saque().setVisible(true);
+        new Saque(contaPoupanca).setVisible(true);
             this.dispose();
     }//GEN-LAST:event_btSaqueActionPerformed
 
     private void btSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaldoActionPerformed
-        new Saldo().setVisible(true);
+        new Saldo(contaPoupanca).setVisible(true);
             this.dispose();
     }//GEN-LAST:event_btSaldoActionPerformed
 
-    private void btDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDepositoActionPerformed
-        new Deposito().setVisible(true);
+    private void btDeposito2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeposito2ActionPerformed
+        new Deposito(contaPoupanca).setVisible(true);
             this.dispose();
-    }//GEN-LAST:event_btDepositoActionPerformed
+    }//GEN-LAST:event_btDeposito2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -250,7 +253,7 @@ public class CadastroConta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btDeposito;
+    private javax.swing.JButton btDeposito2;
     private javax.swing.JButton btSaldo;
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btSaque;
